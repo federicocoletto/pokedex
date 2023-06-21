@@ -47,17 +47,31 @@
 
 .pokename__info {
 	display: grid;
+	margin-top: 2em;
 	grid-template-columns: repeat(4, 1fr);
-	place-items: center;
-	column-gap: 1em;
+	gap: 1em;
 }
 
-.pokename__info-label:first-of-type {
+.pokename__info-labels {
+	grid-column: 1/5;
+	display: flex;
+	justify-content: space-around;
+}
+
+.pokename__info-types {
 	grid-column: 1/3;
+	display: flex;
+	gap: 1em;
+	justify-content: space-around;
+	align-items: first baseline;
 }
 
-.pokename__info-label:nth-of-type(2) {
+.pokename__info-abilities {
 	grid-column: 3/5;
+	display: flex;
+	gap: 1em;
+	justify-content: space-around;
+	align-items: first baseline;
 }
 
 .pokename__info-type-item, .pokename__info-ability-item {

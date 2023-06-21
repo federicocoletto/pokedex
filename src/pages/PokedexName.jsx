@@ -46,20 +46,26 @@ const PokedexName = () => {
 									<h5 className="wh_value">{pokemon?.height}</h5>
 								</div>
 								<div className="pokename__info">
-									<p className="pokename__info-label">Type</p>
-									<p className="pokename__info-label">Abilities</p>
-									{pokemon?.types.map(typeName => (
-										<p
-											key={typeName.type.url}
-											className={`pokename__info-type-item ${typeName.type.name}_bg`}>
-											{typeName.type.name}</p>
-									))}
-									{pokemon?.abilities.map(abiName => (
-										<p
-											key={abiName.ability.url}
-											className="pokename__info-ability-item"
-										>{abiName.ability.name}</p>
-									))}
+									<div className="pokename__info-labels">
+										<p className="pokename__info-label">Type</p>
+										<p className="pokename__info-label">Abilities</p>
+									</div>
+									<div className="pokename__info-types">
+										{pokemon?.types.map(typeName => (
+											<p
+												key={typeName.type.url}
+												className={`pokename__info-type-item ${typeName.type.name}_bg`}>
+												{typeName.type.name}</p>
+										))}
+									</div>
+									<div className="pokename__info-abilities">
+										{pokemon?.abilities.map(abiName => (
+											<p
+												className="pokename__info-ability-item"
+												key={abiName.ability.url}
+											>{abiName.ability.name}</p>
+										))}
+									</div>
 								</div>
 							</header>
 							<section className="pokename__stats">
