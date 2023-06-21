@@ -28,7 +28,7 @@ const HomePage = () => {
                     type="text" {...register('trainerName')} 
                     placeholder="Insert your triner name (+3 letters)"
                 />
-                <button className="trainerName__btn">Atrápalos todos</button>
+                <button className="trainerName__btn">Catch them all!</button>
             </form>
         </article>
     );
