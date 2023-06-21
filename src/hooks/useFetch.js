@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const useFetch = (url) => {
 	const [apiInfo, setApiInfo] = useState();
-	const [hasError, setHasError] = useState(true);
+	const [hasError, setHasError] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 
 	const getApi = () => {
