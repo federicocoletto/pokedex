@@ -103,9 +103,11 @@
 }
 
 .pokename__movements {
+	max-width: 1024px;
 	margin-top: 2em;
 }
 .movements {
+	max-width: 1024px;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1em;
