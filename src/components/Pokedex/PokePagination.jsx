@@ -1,3 +1,4 @@
+import './styles/PokePagination.css'
 
 const PokePagination = ({ pokemonsPerPage, totalPokemons, paginate }) => {
 	const pageNumbers = [];

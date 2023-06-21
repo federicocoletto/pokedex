@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { setTrainerNameG } from "../store/slices/trainerName.slice";
 import { useNavigate } from "react-router-dom";
+import '../components/Home/HomePage.css'
 
 const HomePage = () => {
 
@@ -19,15 +20,17 @@ const HomePage = () => {
     }
 
     return (
-        <>
-            <h1>HomePage</h1>
-            <h2>Hola {trainerName || 'entrenador'}</h2>
-            <p>Para comenzar a usar la aplicación, por favor inserte su numbre de entrenador.</p>
+        <article className="home-page">
+            <h2>Welcome, {trainerName || 'trainer'}</h2>
+            <p className="trainerName__msg">To begin, please insert your triner name:</p>
             <form onSubmit={handleSubmit(submit)}>
-                <input type="text" {...register('trainerName')} />
-                <button>Atrápalos todos</button>
+                <input className="trainerName__input"
+                    type="text" {...register('trainerName')} 
+                    placeholder="Insert your triner name (+3 letters)"
+                />
+                <button className="trainerName__btn">Atrápalos todos</button>
             </form>
-        </>
+        </article>
     );
 };
 
