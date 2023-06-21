@@ -7,17 +7,18 @@ import PokeContainer from "../components/Pokedex/PokeContainer";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../styles/Pokedex/Pokedex.css'
+import PokePagination from "../components/Pokedex/PokePagination";
 
 const Pokedex = () => {
 
 	const [selectedType, setSelectedType] = useState("filter-by-type");
 	const [loading, setLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [pokemonsPerPage, setPokemonsPerPage] = useState(10);
+	const [pokemonsPerPage, setPokemonsPerPage] = useState(30);
 
 	const trainerName = useSelector(states => states.trainerName)
 
-	let pokemons_URL = 'https://pokeapi.co/api/v2/pokemon'
+	let pokemons_URL = 'https://pokeapi.co/api/v2/pokemon?limit=1281offset=0'
 
 	const types_URL = 'https://pokeapi.co/api/v2/type'
 	const [pokemons, getAllPokemons, hasError, setApiInfo] = useFetch(pokemons_URL)
@@ -25,8 +26,11 @@ const Pokedex = () => {
 
 	useEffect(() => {
 		if (selectedType === 'filter-by-type') {
+			setLoading(true)
 			getAllPokemons()
+			setLoading(false)
 		} else {
+			setLoading(true)
 			axios
 				.get(selectedType)
 				.then(res => {
@@ -34,6 +38,7 @@ const Pokedex = () => {
 						results: res.data.pokemon.map(pokeInfo => pokeInfo.pokemon)
 					}
 					setApiInfo(data)
+					setLoading(false)
 				})
 				.catch(err => console.log(err))
 		}
@@ -51,8 +56,15 @@ const Pokedex = () => {
 
 	const handleChangeType = (e) => {
 		setSelectedType(e.target.value);
-		console.log(selectedType);
 	}
+
+	// get current posts
+	const indexOfLastPokemon = pokemonsPerPage * currentPage;
+	const indexOfFirsPokemon = indexOfLastPokemon - pokemonsPerPage;
+	const currentPokemons = pokemons?.results.slice(indexOfFirsPokemon, indexOfLastPokemon)
+
+	// change page
+	const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
 	console.log(pokemons);
 
@@ -80,7 +92,8 @@ const Pokedex = () => {
 				</select>
 				<button>Search</button>
 			</form>
-			<PokeContainer pokemons={pokemons?.results} />
+			<PokePagination pokemonsPerPage={pokemonsPerPage} totalPokemons={pokemons?.results.length} />
+			<PokeContainer pokemons={currentPokemons} loading={loading} paginate={paginate} />
 		</>
 	);
 };
