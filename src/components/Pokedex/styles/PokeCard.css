@@ -36,6 +36,7 @@
 }
 
 .pokecard__types {
+	width: 100%;
 	display: flex;
 	justify-content: center;
 	gap: 2em;
@@ -67,8 +68,9 @@
 }
 
 .pokecard__stats {
+	width: 100%;
 	display: grid;
-	grid-template-columns: repeat(2, 160px);
+	grid-template-columns: repeat(2, 150px);
 	row-gap: 1em;
 	margin: 1em 0;
 }

@@ -10,7 +10,7 @@ const PokedexName = () => {
 	const url = `https://pokeapi.co/api/v2/pokemon/${name}`
 
 
-	const [pokemon, getPokemonByName, hasError] = useFetch(url)
+	const [pokemon, getPokemonByName, hasError, setApiInfo, isLoading, setIsLoading] = useFetch(url)
 
 	useEffect(() => {
 		getPokemonByName()
@@ -21,9 +21,13 @@ const PokedexName = () => {
 	return (
 		<>
 			{
-				hasError
+				hasError && <h1>{name} is not a pokemon</h1>
+			}
+
+			{
+				isLoading
 					? (
-						<h1>{name} is not a pokemon</h1>
+						!hasError && (<h1>Loading {pokemon} info</h1>)
 					)
 					: (
 						<article className="pokename">
@@ -58,7 +62,6 @@ const PokedexName = () => {
 									))}
 								</div>
 							</header>
-
 							<section className="pokename__stats">
 								<h2>Stats</h2>
 								{pokemon?.stats.map(statName => (
@@ -77,7 +80,6 @@ const PokedexName = () => {
 									</>
 								))}
 							</section>
-
 							<section className="pokename__movements">
 								<h2>Movements</h2>
 								<ul className="movements">
