@@ -1,0 +1,7 @@
+.pokecontainer {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	gap: 1em;
+	place-items: center;
+	margin-top: 3em;
+}

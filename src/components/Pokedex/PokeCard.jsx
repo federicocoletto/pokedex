@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+import './styles/PokeCard.css'
 
 /* eslint-disable react/prop-types */
 const PokeCard = ({ url }) => {
@@ -16,38 +17,40 @@ const PokeCard = ({ url }) => {
 
 	const handlePokeName = () => {
 		navigate(`/pokedex/${pokemon.name}`)
+		console.log(pokemon);
 	}
+
 
 	return (
 		<>
-			<article className="poke-card" onClick={handlePokeName} style={{border: '1px solid'}}>
-				<div className="img">
-					<img src={pokemon?.sprites.other['official-artwork'].front_default} alt="" />
-				</div>
-				<h3>{pokemon?.name}</h3>
-				<ul className="typeName">
-					{pokemon?.types.map(typeName => (
-						<li key={typeName.type.url}>{typeName.type.name.charAt(0).toUpperCase()}{typeName.type.name.slice(1)}</li>
-					))}
-				</ul>
-				<div className="stats">
-					<div className="hp">
-						<h6>{pokemon?.stats[0].stat.name.toUpperCase()}</h6>
-						<p>{pokemon?.stats[0].base_stat}</p>
-					</div>
-					<div className="attack">
-						<h6>{pokemon?.stats[1].stat.name.toUpperCase()}</h6>
-						<p>{pokemon?.stats[1].base_stat}</p>
-					</div>
-					<div className="defense">
-						<h6>{pokemon?.stats[2].stat.name.toUpperCase()}</h6>
-						<p>{pokemon?.stats[2].base_stat}</p>
-					</div>
-					<div className="speed">
-						<h6>{pokemon?.stats[5].stat.name.toUpperCase()}</h6>
-						<p>{pokemon?.stats[5].base_stat}</p>
-					</div>
-				</div>
+			<article className={`pokecard ${pokemon?.types[0].type.name}`}>
+				<header className="pokecard__header" onClick={handlePokeName}>
+					<img
+						src={pokemon?.sprites.other['official-artwork'].front_default}
+						alt=""
+						className="pokecard__img" />
+				</header>
+				<section className="pokecard__body">
+					<h3 className="pokecard__name">{pokemon?.name}</h3>
+					<ul className="pokecard__types">
+						{pokemon?.types.map(typeName => (
+							<li key={typeName.type.url} className="pokecard__types-item">{typeName.type.name}</li>
+						))}
+					</ul>
+					<h6 className="pokecard__types-type">Type</h6>
+				</section>
+				<footer className="pokecard__footer">
+					<ul className="pokecard__stats">
+						{
+							pokemon?.stats.map(stat => (
+								<li key={stat.url} className="pokecard__stats-item">
+									<h6 className="pokecard__stats-label">{stat.stat.name}</h6>
+									<h3 className="pokecard__stats-value">{stat.base_stat}</h3>
+								</li>
+							))
+						}
+					</ul>
+				</footer>
 			</article>
 		</>
 	);

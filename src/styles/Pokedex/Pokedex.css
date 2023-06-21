@@ -1,0 +1,12 @@
+.pokedex__form {
+	height: 100px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: start;
+	gap: 1em;
+}
+
+.form-input {
+	max-width: 300px;
+}

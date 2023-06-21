@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unescaped-entities */
 import { useEffect, useRef, useState } from "react";
 import useFetch from "../hooks/useFetch";
@@ -5,15 +6,18 @@ import { useSelector } from "react-redux";
 import PokeContainer from "../components/Pokedex/PokeContainer";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import '../styles/Pokedex/Pokedex.css'
 
 const Pokedex = () => {
 
 	const [selectedType, setSelectedType] = useState("filter-by-type");
-
+	const [loading, setLoading] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [pokemonsPerPage, setPokemonsPerPage] = useState(10);
 
 	const trainerName = useSelector(states => states.trainerName)
 
-	let pokemons_URL = 'https://pokeapi.co/api/v2/pokemon?limit=20&offset=0'
+	let pokemons_URL = 'https://pokeapi.co/api/v2/pokemon'
 
 	const types_URL = 'https://pokeapi.co/api/v2/type'
 	const [pokemons, getAllPokemons, hasError, setApiInfo] = useFetch(pokemons_URL)
@@ -33,7 +37,6 @@ const Pokedex = () => {
 				})
 				.catch(err => console.log(err))
 		}
-
 		getAllTypes()
 	}, [selectedType]);
 
@@ -51,13 +54,16 @@ const Pokedex = () => {
 		console.log(selectedType);
 	}
 
+	console.log(pokemons);
+
 	return (
 		<>
-			<h1>Welcome {trainerName}, here you'll find your favourite pokemons</h1>
-			<form onSubmit={handleSubmitName}>
-				<input
+			<h1 className="welcome__msg">Welcome {trainerName[0].toUpperCase()}{trainerName.slice(1)}, here you'll find your favourite pokemons</h1>
+			<form className="pokedex__form" onSubmit={handleSubmitName}>
+				<input className="form-input"
 					type="text"
 					ref={searchName_ref}
+					placeholder="pokemon name"
 				// onChange={handleChangeName} 
 				// value={inputName}
 				/>
